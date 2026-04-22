@@ -1,11 +1,15 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
-from app.services.file_service import read_json
-from app.core.config import LESSONS_FILE
-from app.models.lesson import Lesson
+from app.core.deps import get_db
+from app.models.lesson import LessonDB
+from app.schemas.lesson import LessonRead
 
 router = APIRouter(prefix="/lessons", tags=["lessons"])
 
-@router.get("/", response_model=list[Lesson])
-def get_lessons():
-    return read_json(LESSONS_FILE)
+
+@router.get("/", response_model=list[LessonRead])
+def get_lessons(db: Session = Depends(get_db)):
+    lessons = db.scalars(select(LessonDB)).all()
+    return lessons
