@@ -7,3 +7,6 @@ LESSONS_FILE = DATA_DIR / "lessons.json"
 QUIZ_FILE = DATA_DIR / "quiz_questions.json"
 
 FRONTEND_ORIGIN = "http://localhost:5173"
+
+MONGO_URI = "mongodb://mongoadmin:supersecret123@localhost:27017/"
+MONGO_DB_NAME = "reactquest"
